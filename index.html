@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Caah ✨</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --marrom-claro: #8B4513;
+            --marrom-escuro: #5D2906;
+            --marrom-peles: #D2B48C;
+            --dourado: #DAA520;
+            --verde-vestido: #2E8B57;
+            --branco-suave: #FFF9F0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #fdf6e3 0%, #f5e6d3 100%);
+            color: #333;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 20px;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Tela inicial - Entrada do nome */
+        .welcome-screen {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .welcome-screen h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3rem;
+            color: var(--marrom-escuro);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .welcome-screen p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .name-input-container {
+            margin: 30px 0;
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .name-input-container label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--marrom-escuro);
+            font-size: 1.1rem;
+        }
+
+        .name-input {
+            width: 100%;
+            padding: 15px 20px;
+            border: 2px solid var(--marrom-peles);
+            border-radius: 50px;
+            font-size: 1.2rem;
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            outline: none;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .name-input:focus {
+            border-color: var(--marrom-claro);
+            box-shadow: 0 0 10px rgba(139, 69, 19, 0.3);
+        }
+
+        .start-btn {
+            background-color: var(--marrom-peles);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(139, 69, 19, 0.3);
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .start-btn:hover {
+            background-color: var(--marrom-claro);
+            transform: scale(1.05);
+        }
+
+        .start-btn.active {
+            background-color: var(--marrom-claro);
+            animation: heartbeat 1.5s infinite;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            5% { transform: scale(1.1); }
+            10% { transform: scale(1); }
+            15% { transform: scale(1.1); }
+            20% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+
+        /* Tela principal da carta */
+        .letter-screen {
+            display: none;
+            opacity: 0;
+            min-height: 100vh;
+            position: relative;
+            padding-top: 40px;
+            z-index: 2;
+            transition: opacity 0.8s ease;
+        }
+
+        .section {
+            margin-bottom: 60px;
+            padding: 30px;
+            background-color: rgba(255, 255, 255, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--marrom-claro), var(--dourado));
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .user-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: var(--marrom-escuro);
+            margin-right: 15px;
+        }
+
+        .heart-icon {
+            color: var(--marrom-claro);
+            font-size: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .section-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .highlight {
+            color: var(--marrom-claro);
+            font-weight: 600;
+        }
+
+        .image-container {
+            width: 100%;
+            max-width: 500px;
+            margin: 30px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .image-container:hover img {
+            transform: scale(1.03);
+        }
+
+        .caption {
+            text-align: center;
+            font-style: italic;
+            color: #777;
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .signature {
+            text-align: right;
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: var(--marrom-escuro);
+            margin-top: 20px;
+        }
+
+        .final-message {
+            text-align: center;
+            font-size: 1.3rem;
+            color: var(--marrom-escuro);
+            padding: 30px;
+            font-weight: 600;
+            background-color: rgba(210, 180, 140, 0.1);
+            border-radius: 15px;
+            margin-top: 40px;
+        }
+
+        /* Corações de fundo */
+        .hearts-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 20px;
+            color: var(--marrom-claro);
+            opacity: 0.7;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.7;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .welcome-screen h1 {
+                font-size: 2.5rem;
+            }
+            
+            .welcome-screen p {
+                font-size: 1.1rem;
+            }
+            
+            .section {
+                padding: 20px;
+                margin-bottom: 40px;
+            }
+            
+            .user-name {
+                font-size: 2rem;
+            }
+            
+            .section-content {
+                font-size: 1rem;
+            }
+            
+            .image-container {
+                max-width: 100%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .welcome-screen h1 {
+                font-size: 2rem;
+            }
+            
+            .welcome-screen p {
+                font-size: 1rem;
+            }
+            
+            .name-input {
+                padding: 12px 15px;
+                font-size: 1rem;
+            }
+            
+            .start-btn {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Tela inicial ÚNICA -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <h1>Para uma pessoa especial ✨</h1>
+            <p id="welcomeText"></p>
+            
+            <div class="name-input-container">
+                <label for="userName">Digite seu nome para começar:</label>
+                <input type="text" id="userName" class="name-input" placeholder="Seu nome">
+            </div>
+            
+            <button class="start-btn" id="startBtn">
+                🤎
+            </button>
+        </div>
+        
+        <!-- Tela da carta -->
+        <div class="letter-screen" id="letterScreen">
+            <!-- Seção 1 - Olhos -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="user-name" id="displayName">Caah</h2>
+                    <div class="heart-icon">🤎</div>
+                </div>
+                
+                <div class="image-container">
+                    <img src="caah,olhos.jpeg" alt="Olhos castanhos profundos da Caah">
+                    <div class="caption">Olhos que falam sem palavras</div>
+                </div>
+                
+                <div class="section-content">
+                    <p>Olhos castanhos que carregam calma e profundidade, e cabelos que revelam uma beleza natural, sem esforço. Mas o que mais chama atenção não é só o que se vê. É a forma como ela é firme, tranquila e verdadeira.</p>
+                    <p>Tem presença, tem essência, tem luz própria. Não é sobre chamar atenção — é sobre marcar. E quem percebe isso, entende que algumas pessoas não precisam provar nada para serem especiais <span class="highlight">✨🤎</span>.</p>
+                </div>
+            </div>
+            
+            <!-- Seção 2 - Vestido -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="user-name" id="displayName2">Caah</h2>
+                    <div class="heart-icon">🤎</div>
+                </div>
+                
+                <div class="image-container">
+                    <img src="vestido.jpeg" alt="Caah de vestido verde">
+                    <div class="caption">Leveza e firmeza em harmonia</div>
+                </div>
+                
+                <div class="section-content">
+                    <p>Leveza na forma de viver, firmeza no jeito de ser. Morena por fora, forte e iluminada por dentro. Há uma beleza silenciosa em quem sabe exatamente do que é capaz. <span class="highlight">✨</span></p>
+                </div>
+            </div>
+            
+            <!-- Seção 3 - Aviação -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="user-name" id="displayName3">Caah</h2>
+                    <div class="heart-icon">🤎</div>
+                </div>
+                
+                <div class="image-container">
+                    <img src="aviation.jpeg" alt="Caah no treinamento de aviação">
+                    <div class="caption">Foco no objetivo</div>
+                </div>
+                
+                <div class="section-content">
+                    <p>Concentrada, determinada e cheia de propósito. Desde cedo mostrando que sonhos grandes exigem foco, disciplina e esforço. O céu não é o limite para quem sabe onde quer chegar.</p>
+                </div>
+                
+                <div class="signature">Com admiração,<br>Quem te vê ✨</div>
+            </div>
+            
+            <!-- Mensagem final -->
+            <div class="final-message">
+                Para Caah cheada mais linda espero seu sorriso🤎
+            </div>
+        </div>
+        
+        <!-- Corações de fundo -->
+        <div class="hearts-background" id="heartsBackground"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos principais
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            const letterScreen = document.getElementById('letterScreen');
+            const startBtn = document.getElementById('startBtn');
+            const userNameInput = document.getElementById('userName');
+            const heartsBackground = document.getElementById('heartsBackground');
+            const displayNames = document.querySelectorAll('.user-name');
+            const welcomeText = document.getElementById('welcomeText');
+            
+            // Estado inicial
+            let userName = '';
+            
+            // Criar corações de fundo
+            function createHearts() {
+                // Limpar corações existentes
+                heartsBackground.innerHTML = '';
+                
+                // Criar novos corações
+                for (let i = 0; i < 25; i++) {
+                    const heart = document.createElement('div');
+                    heart.classList.add('heart');
+                    heart.innerHTML = '🤎';
+                    
+                    // Tamanho aleatório
+                    const size = Math.random() * 25 + 15;
+                    heart.style.fontSize = `${size}px`;
+                    
+                    // Posição inicial aleatória
+                    const startPosition = Math.random() * 100;
+                    heart.style.left = `${startPosition}%`;
+                    
+                    // Duração da animação aleatória
+                    const duration = Math.random() * 20 + 15;
+                    heart.style.animationDuration = `${duration}s`;
+                    
+                    // Atraso inicial aleatório
+                    const delay = Math.random() * 5;
+                    heart.style.animationDelay = `${delay}s`;
+                    
+                    heartsBackground.appendChild(heart);
+                }
+            }
+            
+            // Atualizar botão conforme digitação
+            userNameInput.addEventListener('input', function() {
+                userName = this.value.trim();
+                
+                if (userName.length > 0) {
+                    // Mudar cor do botão e ativar
+                    startBtn.classList.add('active');
+                    startBtn.style.backgroundColor = '#8B4513'; // Marrom
+                } else {
+                    // Desativar botão
+                    startBtn.classList.remove('active');
+                    startBtn.style.backgroundColor = '#D2B48C'; // Marrom pele
+                }
+            });
+            
+            // Iniciar carta
+            startBtn.addEventListener('click', function() {
+                if (userName.length === 0) {
+                    // Efeito de alerta se não tiver nome
+                    userNameInput.style.borderColor = '#ff6b6b';
+                    userNameInput.style.boxShadow = '0 0 10px rgba(255, 107, 107, 0.5)';
+                    
+                    setTimeout(() => {
+                        userNameInput.style.borderColor = '#D2B48C';
+                        userNameInput.style.boxShadow = 'none';
+                    }, 1000);
+                    return;
+                }
+                
+                // Atualizar nomes na carta
+                displayNames.forEach(nameElement => {
+                    nameElement.textContent = userName;
+                });
+                
+                // Transição entre telas
+                welcomeScreen.style.opacity = '0';
+                welcomeScreen.style.transition = 'opacity 0.8s ease';
+                
+                setTimeout(() => {
+                    welcomeScreen.style.display = 'none';
+                    letterScreen.style.display = 'block';
+                    
+                    // Efeito de fade in na carta
+                    setTimeout(() => {
+                        letterScreen.style.opacity = '1';
+                    }, 50);
+                    
+                    // Aumentar número de corações de fundo
+                    createHearts();
+                    setInterval(createHearts, 20000);
+                }, 800);
+            });
+            
+            // Permitir iniciar com Enter
+            userNameInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    startBtn.click();
+                }
+            });
+            
+            // Inicializar corações na tela inicial
+            createHearts();
+            
+            // Adicionar efeito de digitação na frase inicial
+            const welcomePhrase = "Não é só beleza. É presença. É atitude. É uma morena de cachos que sabe o próprio valor.";
+            
+            let charIndex = 0;
+            function typeWelcomeText() {
+                if (charIndex < welcomePhrase.length) {
+                    welcomeText.textContent += welcomePhrase.charAt(charIndex);
+                    charIndex++;
+                    setTimeout(typeWelcomeText, 50);
+                }
+            }
+            
+            // Iniciar efeito de digitação após um breve delay
+            setTimeout(typeWelcomeText, 1000);
+        });
+    </script>
+</body>
+</html>
